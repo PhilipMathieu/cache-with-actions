@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(
     handlers=[
-        logging.FileHandler("logfile.log"),
+        logging.FileHandler("logfile.txt"),
         logging.StreamHandler()
         ],
     level=logging.INFO,
