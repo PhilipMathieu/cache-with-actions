@@ -6,7 +6,6 @@ This repo is a minimal implementation of a GitHub Pages site that periodically q
 
 1. Update the request URL by editing `config.json`
 2. Change the update frequency by editing the cron timing in `./github/workflows/python-app.yml`
-3. Delete `logfile.log` to start fresh
 
 ## Known Limitations
 
