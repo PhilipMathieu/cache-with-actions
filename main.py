@@ -2,6 +2,7 @@ import json
 import requests as re
 import logging
 
+# set up logging
 logging.basicConfig(
     handlers=[
         logging.FileHandler("logfile.txt"),
@@ -10,6 +11,8 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s:%(levelname)s:%(message)s"
     )
+
+# load configuration
 try:
     with open('config.json', 'r') as f:
         config = json.load(f)
@@ -17,14 +20,24 @@ try:
 except:
     logging.error("Invalid URL configuration")
     exit(1)
+
+# Configure request, including headers for CORS policy
+headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*"
+    }
+
 # retrieve new data from API
 try:
-    res = re.get(url)
-    res.headers
-    assert res.headers['Status'] == '200 OK'
-    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    res = re.get(url, headers=headers)
+    assert res.status_code == 200
+    assert res.headers["Content-Type"].startswith('application/json')
 except:
-    logging.error(f"Invalid response: {res.headers['Status']}")
+    # save error as html if request fails
+    if res.headers['Content-Type'].startswith('text/html'):
+        with open('response.html', 'w') as f:
+            f.write(res.content)
+    logging.error(f"Invalid response: {res.status_code}, {res.headers['Content-Type']}")
     exit(1)
 
 # load content
