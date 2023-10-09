@@ -3,6 +3,7 @@ import requests as re
 import logging
 
 # set up logging
+# set up logging
 logging.basicConfig(
     handlers=[
         logging.FileHandler("logfile.txt"),
@@ -11,6 +12,8 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s:%(levelname)s:%(message)s"
     )
+
+# load configuration
 
 # load configuration
 try:
@@ -58,3 +61,4 @@ with open('response.json', 'w') as f:
     json.dump(content, f)
 
 logging.info("Updated response successfully")
+
